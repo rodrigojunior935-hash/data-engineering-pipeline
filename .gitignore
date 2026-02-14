@@ -15,9 +15,9 @@ airflow.db
 .env
 
 # Data Lake (não versionar dados)
-datalake/raw/
-datalake/trusted/
-datalake/curated/
+# Ignore parquet files only
+*.parquet
+
 
 # OS
 Thumbs.db
