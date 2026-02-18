@@ -1,10 +1,8 @@
-import psycopg2
+from sqlalchemy import create_engine
 
-def get_connection():
-    conn = psycopg2.connect(
-        host="host.docker.internal",
-        database="pipeline_db",
-        user="postgres",
-        password="postgres"
+def get_engine():
+    engine = create_engine(
+        "postgresql+psycopg2://airflow:airflow@postgres/airflow"
     )
-    return conn
+    return engine
+
