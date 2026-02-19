@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: staging
+    database: postgres
+    schema: staging
+    tables:
+      - name: sales
