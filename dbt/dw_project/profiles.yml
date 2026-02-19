@@ -8,5 +8,5 @@ dw_project:
       user: postgres
       password: postgres
       dbname: postgres
-      schema: public
+      schema: dw
       threads: 1
