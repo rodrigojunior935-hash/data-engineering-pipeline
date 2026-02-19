@@ -49,3 +49,8 @@ http://localhost:9001
 5. **spark_processing** — processamento com Spark
 6. **dbt_run** — modelagem no data warehouse
 7. **dbt_test** — validação dos modelos
+
+## Próximos passos
+
+- **Projeto 10** — Observabilidade e qualidade de dados
+- **Projeto 11** — IA aplicada ao pipeline
