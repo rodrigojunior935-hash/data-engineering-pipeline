@@ -130,20 +130,35 @@ def run_quality_checks():
         "postgresql://postgres:postgres@project10-postgres_dw-1:5432/postgres"
     )
 
-    # Verifica se a tabela existe antes de consultar
-    if not table_exists(engine, "dw", "fact_sales"):
-        error_msg = "Tabela dw.fact_sales não existe no DW."
-        log_validation("estrutura", "FALHA", error_msg)
-        raise ValueError(error_msg)
+    try:
 
-    df = pd.read_sql("SELECT * FROM dw.fact_sales", engine)
+        # Verifica se tabela existe
+        if not table_exists(engine, "dw", "fact_sales"):
+            error_msg = "Tabela dw.fact_sales não existe no DW."
+            log_validation("estrutura", "FALHA", error_msg)
+            raise ValueError(error_msg)
 
-    # Executa validações
-    validate_row_count(df)
-    validate_no_nulls(df, ["category"])
-    validate_no_duplicates(df, "category")
+        df = pd.read_sql("SELECT * FROM dw.fact_sales", engine)
 
-    # Registra volume histórico
-    log_volume(df)
+        # Executa validações
+        validate_row_count(df)
+        validate_no_nulls(df, ["category"])
+        validate_no_duplicates(df, "category")
 
-    logging.info("Validações executadas com sucesso.")
+        # Registra volume histórico
+        log_volume(df)
+
+        logging.info("Validações executadas com sucesso.")
+
+    except Exception as e:
+
+        logging.error("Erro detectado na validação de dados.")
+
+        # 🔥 AQUI ENTRA A IA
+        analysis = analyze_pipeline_error(str(e))
+
+        logging.error("===== ANALISE IA =====")
+        logging.error(analysis)
+
+        # mantém comportamento original (falha a DAG)
+        raise
